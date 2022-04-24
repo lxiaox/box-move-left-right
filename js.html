@@ -1,0 +1,60 @@
+<!-- box动画：碰到左边界往右移，碰到右边界往左移 -->
+
+<!-- JS方法：requestAnimationFrame -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      box-sizing: border-box;
+      width: 40px;
+      border: 1px solid red;
+      height: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box" class="box"></div>
+
+  <script>
+    let box = document.getElementById('box')
+    // console.log(box.getBoundingClientRect().left) // 8,初始是8，所以下面要减8
+
+    function moveToRight() {
+      // x：下一个translate值，应该等于原来的translateX+1，原translateX = box.getBoundingClientRect().left - 8
+      let x = box.getBoundingClientRect().left - 8 + 1
+
+      // 获取原translateX值另一个方法：
+      // box.style.transform.replace(/[^\d.]/g,'') 
+      // 去掉所有非数字和小数点的字符。
+
+      box.style.transform = 'translateX(' + x + 'px)'
+      if (box.getBoundingClientRect().right >= window.innerWidth) {
+        window.requestAnimationFrame(moveToLeft)
+      } else {
+        window.requestAnimationFrame(moveToRight)
+      }
+    }
+
+    function moveToLeft() {
+      let x = box.getBoundingClientRect().left - 8 - 1
+      box.style.transform = 'translateX(' + x + 'px)'
+      if (box.getBoundingClientRect().left <= 0) {
+        window.requestAnimationFrame(moveToRight)
+      } else {
+        window.requestAnimationFrame(moveToLeft)
+      }
+    }
+    window.requestAnimationFrame(moveToRight)
+    // setInterval(moveToRight,300)
+  </script>
+</body>
+
+</html>

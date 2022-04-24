@@ -1,0 +1,47 @@
+<!-- box动画：碰到左边界往右移，碰到右边界往左移 -->
+
+<!-- css实现：动画 + 绝对定位 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      box-sizing: border-box;
+      position: absolute;
+      width: 40px;
+      border: 1px solid red;
+      height: 20px;
+      animation: move 10s infinite linear;
+    }
+
+    @keyframes move {
+      0% {
+        left: 0;
+        /* transform:translateX(0px); */
+      }
+
+      50% {
+        left: calc(100% - 40px);
+        /* transform:translateX(calc(100% - 40px)); 不起效，因为translate：100%是自身宽度*/
+        /* transform:translateX(360px); */
+      }
+
+      100% {
+        left: 0;
+        /* transform:translateX(0px); */
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box"></div>
+</body>
+
+</html>
